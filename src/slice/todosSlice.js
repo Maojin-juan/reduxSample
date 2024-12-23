@@ -15,8 +15,12 @@ export const todosSlice = createSlice({
       state.push(action.payload);
     },
     removeTodo(state, action) {
-      const index = state.findIndex((todo) => todo.id === action.payload);
-      state.splice(index, 1);
+      // const index = state.findIndex((todo) => todo.id === action.payload);
+      // state.splice(index, 1); // 操作相同陣列
+
+      // 當 id 相同的時候移除該 todo === 當 id 不同時保留該項目
+      return state.filter((todo) => todo.id !== action.payload);
+      // 操作不同陣列情況下並非直接覆蓋 state，而是 return
     },
   },
 });
