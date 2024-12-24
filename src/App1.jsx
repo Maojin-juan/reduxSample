@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createTodo, removeTodo } from "./slice/todosSlice";
+import { createTodo, removeTodo, updateTodo } from "./slice/todosSlice";
 
 const initState = {
   id: "",
@@ -30,10 +30,10 @@ function TodoList() {
   }
 
   const editTodo = (e) => {
-    // setEditState({
-    //   ...editState,
-    //   text: e.target.value,
-    // });
+    setEditState({
+      ...editState,
+      text: e.target.value,
+    });
   };
 
   const saveEdit = (id) => {
@@ -41,10 +41,16 @@ function TodoList() {
     // const newTodo = [...todos];
     // newTodo[index] = editState;
     // setTodos(newTodo);
-    // setEditState(initState);
+    dispatch(
+      updateTodo({
+        id,
+        text: editState.text,
+      }),
+    );
+    setEditState(initState);
   };
   const cancelEdit = () => {
-    // setEditState(initState);
+    setEditState(initState);
   };
 
   const deleteTodo = (id) => {
